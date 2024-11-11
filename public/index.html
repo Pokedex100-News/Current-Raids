@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Current Raids</title>
+</head>
+
+<body>
+    <script>
+        const getRaids = async (place = "nyc") => {
+            try {
+                const res = await fetch("/api/raids/" + place)
+                const data = await res.json()
+                sendToUI(data, place)
+            }
+            catch (e) {
+                console.error(e + " Map Down: " + place)
+            }
+        }
+
+        getRaids("nyc")
+        getRaids("sgp")
+        getRaids("sydney")
+
+        const sendToUI = (data, place) => {
+            const set = new Set()
+            for (const raid of data.raids) {
+                if (raid.pokemon_id)
+                    set.add(raid.pokemon_id)
+            }
+            const raids = [...set].sort((a, b) => a - b);
+
+        }
+    </script>
+</body>
+
+</html>
