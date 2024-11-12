@@ -1,6 +1,7 @@
 import express from "express";
 import fetch from "node-fetch";
 import path from "path";
+import fs from "fs"; // Import the fs module
 import { fileURLToPath } from "url";
 
 // __dirname equivalent in ES modules
@@ -57,6 +58,20 @@ app.get("/api/raids/sydney", async (req, res) => {
     console.error("Error fetching data:", error);
     res.status(500).json({ error: "Failed to fetch raids data" });
   }
+});
+
+// Serving the pokedex data
+app.get("/api/pokedex", (req, res) => {
+  const pokedexPath = path.join(__dirname, "Data", "pokedexdata.json");
+
+  fs.readFile(pokedexPath, "utf8", (err, data) => {
+    if (err) {
+      console.error("Error reading the pokedex file:", err);
+      res.status(500).json({ error: "Unable to read pokedex file" });
+    } else {
+      res.json(JSON.parse(data));
+    }
+  });
 });
 
 app.listen(port, () => {

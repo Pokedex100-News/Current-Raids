@@ -4,36 +4,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0e1012" />
+    <link rel="shortcut icon" href="./images/Raid.webp" type="image/webp">
     <title>Current Raids</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <script type="importmap">
+      {
+        "imports": {
+          "@material/web/": "https://esm.run/@material/web/"
+        }
+      }
+    </script>
+    <script type="module">
+        import '@material/web/all.js';
+        import { styles as typescaleStyles } from '@material/web/typography/md-typescale-styles.js';
+
+        document.adoptedStyleSheets.push(typescaleStyles.styleSheet);
+    </script>
+    <style>
+        :root,
+        :host {
+            --md-sys-color-background: #0f1418;
+            --md-sys-color-on-background: #dfe3e8;
+            --md-sys-color-surface: #0f1418;
+            --md-sys-color-surface-dim: #0f1418;
+            --md-sys-color-surface-bright: #353a3e;
+            --md-sys-color-surface-container-lowest: #0a0f12;
+            --md-sys-color-surface-container-low: #171c20;
+            --md-sys-color-surface-container: #1b2024;
+            --md-sys-color-surface-container-high: #262b2f;
+            --md-sys-color-surface-container-highest: #313539;
+            --md-sys-color-on-surface: #dfe3e8;
+            --md-sys-color-surface-variant: #3f4850;
+            --md-sys-color-on-surface-variant: #bec8d1;
+            --md-sys-color-inverse-surface: #dfe3e8;
+            --md-sys-color-inverse-on-surface: #2c3135;
+            --md-sys-color-outline: #88929b;
+            --md-sys-color-outline-variant: #3f4850;
+            --md-sys-color-shadow: #000000;
+            --md-sys-color-scrim: #000000;
+            --md-sys-color-surface-tint: #87ceff;
+            --md-sys-color-primary: #b3deff;
+            --md-sys-color-on-primary: #00344d;
+            --md-sys-color-primary-container: #4cb9f8;
+            --md-sys-color-on-primary-container: #00273b;
+            --md-sys-color-inverse-primary: #006590;
+            --md-sys-color-secondary: #a8cbe6;
+            --md-sys-color-on-secondary: #0b344a;
+            --md-sys-color-secondary-container: #1f435a;
+            --md-sys-color-on-secondary-container: #b6d9f5;
+            --md-sys-color-tertiary: #f3ccff;
+            --md-sys-color-on-tertiary: #4d1168;
+            --md-sys-color-tertiary-container: #d997f3;
+            --md-sys-color-on-tertiary-container: #40005a;
+            --md-sys-color-error: #ffb4ab;
+            --md-sys-color-on-error: #690005;
+            --md-sys-color-error-container: #93000a;
+            --md-sys-color-on-error-container: #ffdad6;
+        }
+    </style>
 </head>
 
 <body>
-    <script>
-        const getRaids = async (place = "nyc") => {
-            try {
-                const res = await fetch("/api/raids/" + place)
-                const data = await res.json()
-                sendToUI(data, place)
-            }
-            catch (e) {
-                console.error(e + " Map Down: " + place)
-            }
-        }
-
-        getRaids("nyc")
-        getRaids("sgp")
-        getRaids("sydney")
-
-        const sendToUI = (data, place) => {
-            const set = new Set()
-            for (const raid of data.raids) {
-                if (raid.pokemon_id)
-                    set.add(raid.pokemon_id)
-            }
-            const raids = [...set].sort((a, b) => a - b);
-
-        }
-    </script>
+    <h1>Current Raid Bosses</h1>
+    <script src="./app.js"></script>
 </body>
 
 </html>
