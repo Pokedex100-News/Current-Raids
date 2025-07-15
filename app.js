@@ -4,7 +4,8 @@ const MAX_MAPS = 3;
 
 const getRaids = async (place = "nyc") => {
   try {
-    const res = await fetch("/api/raids/" + place);
+    const res = await fetch(`/Data/${place}.json`);
+    if (!res) return;
     const data = await res.json();
     extractPokemonID(data, place);
   } catch (e) {
@@ -13,7 +14,7 @@ const getRaids = async (place = "nyc") => {
 };
 
 const getPokedexData = async () => {
-  const res = await fetch("/api/pokedex");
+  const res = await fetch("/Data/pokedexdata.json");
   return await res.json();
 };
 
@@ -23,7 +24,6 @@ getRaids("sydney");
 
 const extractPokemonID = async (data, place) => {
   for (const raid of data.raids) {
-    console.log(raid);
     if (raid.pokemon_id) set.add(raid.pokemon_id);
   }
   mapsCounter++;
