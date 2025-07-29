@@ -4,7 +4,7 @@ const MAX_MAPS = 3;
 
 const getRaids = async (place = "nyc") => {
   try {
-    const res = await fetch(`/Data/${place}.json`);
+    const res = await fetch(`https://raw.githubusercontent.com/Pokedex100/Current-Raids/refs/heads/main/Data/${place}.json`);
     if (!res) return;
     const data = await res.json();
     extractPokemonID(data, place);
@@ -14,7 +14,7 @@ const getRaids = async (place = "nyc") => {
 };
 
 const getPokedexData = async () => {
-  const res = await fetch("/Data/pokedexdata.json");
+  const res = await fetch("https://raw.githubusercontent.com/Pokedex100/Current-Raids/refs/heads/main/Data/pokedexdata.json");
   return await res.json();
 };
 
